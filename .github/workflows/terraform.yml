@@ -1,0 +1,61 @@
+name: 'Terraform'
+
+on:
+  workflow_call:
+    inputs:
+      TF_FORCE_APPLY:
+        required: false
+        type: string
+      RUN_DBMATE:
+        required: false
+        type: string
+      ENVIRONMENT:
+        required: true
+        type: string
+      DBMATE_PAYLOAD:
+        required: true
+        type: string
+      COMPONENT:
+        required: true
+        type: string
+      TF_PRE_PLAN_COMMANDS:
+        required: false
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+    AWS_DEFAULT_REGION: ap-southeast-2
+    AWS_OIDC_ROLE: arn:aws:iam::770869617017:role/EQL-GitHub-Actions-ER-DataPlatform-Env
+
+jobs:
+    tf_plan:
+        name: Terraform Plan
+        concurrency: tf_${{ inputs.COMPONENT }}_${{ inputs.ENVIRONMENT }}
+        runs-on: ubuntu-latest
+        steps:
+          - name: Repo Checkout
+            uses: actions/checkout@v4
+    
+          - name: Configure AWS Credentials
+            uses: aws-actions/configure-aws-credentials@v4
+            with:
+             aws-region: ${{ env.AWS_DEFAULT_REGION }}
+             role-to-assume: ${{ env.AWS_OIDC_ROLE }}
+
+          - name: 'Who am i'
+            shell: bash
+            run: |
+             terraform -version
+             aws sts get-caller-identity
+
+          - name: Terraform Plan
+            id: plan
+            uses: ifeanyi23/github-action-terraform-plan@v1.0.0
+            with:
+               gitUser: ${{ secrets.ACTIONS_SAAS_SA_USER }}
+               gitToken: ${{ secrets.ACTIONS_SAAS_SA_TKN }}
+               tfWorkspace: ergonretail-dataplatform-env-${{ inputs.ENVIRONMENT }}
+               tfDir: ${{ inputs.COMPONENT }}/terraform
