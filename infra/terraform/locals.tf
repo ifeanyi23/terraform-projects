@@ -1,5 +1,5 @@
 locals {
-  region = "ap-southeast-2"
+  region = "ap-southeast-2" #region
   env = {
     joe-org-platform-env-dev = {
       account_id  = "211125691937"
