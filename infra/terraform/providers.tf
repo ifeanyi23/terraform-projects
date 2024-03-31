@@ -1,10 +1,15 @@
 terraform {
   backend "s3" {
-    bucket  = "joes-bucket-terraform-state"
-    encrypt = true
-    key     = "terraform.tfstate"
-    region  = "ap-southeast-2"
-    # profile        = "Joseph"
+    bucket         = "joeboy-mgmtacc-terraform-state"
+    encrypt        = true
+    key            = "Joe-Org-Github-Actions-Env/infra/terraform.tfstate"
+    dynamodb_table = "joeboy-aws-mgmtacct1-terraform-lock"
+    region         = "ap-southeast-2"
+    assume_role = {
+      role_arn     = "arn:aws:iam::670213391116:role/Joe-Org-Github-Actions-Env"
+      duration     = "60m"
+      session_name = "infra@app_platform_env"
+    }
   }
 
   required_providers {
@@ -18,7 +23,13 @@ terraform {
 
 provider "aws" {
   # Configuration options
-  region = "ap-southeast-2"
+  region              = "ap-southeast-2"
+  allowed_account_ids = [local.workspace["account_id"]]
+  assume_role {
+    role_arn     = "arn:aws:iam::${local.workspace["account_id"]}:role/Joe-Org-Github-Actions-Env"
+    duration     = "1h"
+    session_name = "infra@app_platform_env"
+  }
 }
 
 

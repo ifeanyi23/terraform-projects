@@ -1,0 +1,19 @@
+name: '[INFRA] pre-merge'
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'infra/**'
+      - '.github/workflows/infra_pre_merge.yml'
+
+jobs:
+    dev:
+        name: Dev
+        uses: ./.github/workflows/terraform.yml
+        secrets: inherit
+        with:
+            COMPONENT: infra
+            ENVIRONMENT: dev

@@ -28,7 +28,7 @@ permissions:
 
 env:
     AWS_DEFAULT_REGION: ap-southeast-2
-    AWS_OIDC_ROLE: arn:aws:iam::770869617017:role/EQL-GitHub-Actions-ER-DataPlatform-Env
+    AWS_OIDC_ROLE: arn:aws:iam::670213391116:role/Joe-Org-Github-Actions-Env
 
 jobs:
     tf_plan:
@@ -57,5 +57,5 @@ jobs:
             with:
                gitUser: ${{ secrets.ACTIONS_SAAS_SA_USER }}
                gitToken: ${{ secrets.ACTIONS_SAAS_SA_TKN }}
-               tfWorkspace: ergonretail-dataplatform-env-${{ inputs.ENVIRONMENT }}
+               tfWorkspace: joe-org-platform-env-${{ inputs.ENVIRONMENT }}
                tfDir: ${{ inputs.COMPONENT }}/terraform
