@@ -2,6 +2,14 @@ name: '[INFRA] pre-merge'
 
 on:
   workflow_dispatch:
+    inputs:
+        force_terraform_apply:
+          default: "true"
+          type: choice
+          description: Should terraform apply be run ?
+          options:
+            - "true"
+            - "false"
   pull_request:
     branches:
       - main
@@ -17,3 +25,18 @@ jobs:
         with:
             COMPONENT: infra
             ENVIRONMENT: dev
+            TF_FORCE_APPLY: true  #"${{ github.event.inputs.force_terraform_apply }}"
+    test:
+        name: Test
+        uses: ./.github/workflows/terraform.yml
+        secrets: inherit
+        with:
+            COMPONENT: infra
+            ENVIRONMENT: test
+    prod:
+        name: Prod
+        uses: ./.github/workflows/terraform.yml
+        secrets: inherit
+        with:
+            COMPONENT: infra
+            ENVIRONMENT: prod

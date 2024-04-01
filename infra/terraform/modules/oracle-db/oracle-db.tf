@@ -32,19 +32,19 @@ resource "aws_db_option_group" "db_option_group" {
 }
 
 resource "aws_db_instance" "db" {
-  allocated_storage       = var.rds_db.allocated_storage
-  backup_retention_period = var.rds_db.backup_retention_period
-  max_allocated_storage   = var.rds_db.max_allocated_storage
-  db_subnet_group_name    = aws_db_subnet_group.db_subnet_group.id
-  engine                  = var.rds_db.engine
-  engine_version          = var.rds_db.engine_version
-  identifier              = "${var.environment}-${var.rds_db.identifier}"
-  instance_class          = var.rds_db.instance_class
-  license_model           = var.rds_db.license_model
-  multi_az                = var.rds_db.multi_az
-  # manage_master_user_password = var.rds_db.manage_master_user_password
-  username                  = var.rds_db.username
-  password                  = jsondecode(data.aws_secretsmanager_secret_version.current_secrets.secret_string)["password"]
+  allocated_storage           = var.rds_db.allocated_storage
+  backup_retention_period     = var.rds_db.backup_retention_period
+  max_allocated_storage       = var.rds_db.max_allocated_storage
+  db_subnet_group_name        = aws_db_subnet_group.db_subnet_group.id
+  engine                      = var.rds_db.engine
+  engine_version              = var.rds_db.engine_version
+  identifier                  = "${var.rds_db.identifier}-${var.environment}"
+  instance_class              = var.rds_db.instance_class
+  license_model               = var.rds_db.license_model
+  multi_az                    = var.rds_db.multi_az
+  manage_master_user_password = var.rds_db.manage_master_user_password
+  username                    = var.rds_db.username
+  # password                  = jsondecode(data.aws_secretsmanager_secret_version.current_secrets.secret_string)["password"]
   storage_encrypted         = var.rds_db.storage_encrypted
   skip_final_snapshot       = var.rds_db.skip_final_snapshot
   apply_immediately         = var.rds_db.apply_immediately
@@ -75,7 +75,7 @@ resource "aws_db_instance" "db" {
 ##############################################################################
 
 resource "aws_iam_role" "rds_enhanced_monitoring" {
-  name_prefix        = "rds-enhanced-monitoring-"
+  name_prefix        = "${var.environment}-rds-enhanced-monitoring-"
   assume_role_policy = data.aws_iam_policy_document.rds_enhanced_monitoring.json
 }
 

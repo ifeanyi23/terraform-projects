@@ -5,11 +5,11 @@ terraform {
     key            = "Joe-Org-Github-Actions-Env/infra/terraform.tfstate"
     dynamodb_table = "joeboy-aws-mgmtacct1-terraform-lock"
     region         = "ap-southeast-2"
-    assume_role = {
-      role_arn     = "arn:aws:iam::670213391116:role/Joe-Org-Github-Actions-Env"
-      duration     = "60m"
-      session_name = "infra@app_platform_env"
-    }
+    # assume_role = {
+    #   role_arn     = "arn:aws:iam::670213391116:role/Joe-Org-Github-Actions-Env" 
+    #   duration     = "60m"
+    #   session_name = "infra@app_platform_env"
+    # }
   }
 
   required_providers {
@@ -17,13 +17,29 @@ terraform {
       source  = "hashicorp/aws"
       version = ">=5.24.0"
     }
+    external = {
+      source = "hashicorp/external"
+    }
+    archive = {
+      source  = "hashicorp/archive"
+      version = "2.4.2"
+    }
+    null = {
+      source = "hashicorp/null"
+    }
+    local = {
+      source = "hashicorp/local"
+    }
+    template = {
+      source = "hashicorp/template"
+    }
   }
 }
 
 
 provider "aws" {
   # Configuration options
-  region              = "ap-southeast-2"
+  region              = local.region
   allowed_account_ids = [local.workspace["account_id"]]
   assume_role {
     role_arn     = "arn:aws:iam::${local.workspace["account_id"]}:role/Joe-Org-Github-Actions-Env"

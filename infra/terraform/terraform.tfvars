@@ -88,7 +88,7 @@ rds-db = {
 }
 
 s3_buckets = {
-  terraform-state-bucket-001 = {
+  terraform-state-bucket-002 = {
     force_destroy                         = true
     block_public_acls                     = true
     block_public_policy                   = true
@@ -117,7 +117,7 @@ lambda = {
     function_name                  = "stoprds"
     description                    = "Auto Stop RDS Instance (from tag : AutoStop)"
     handler                        = "autostoprdsinstance.lambda_handler"
-    runtime                        = "python3.9"
+    runtime                        = "python3.10"
     zip_name                       = "autostopfunction"
     create_async_event_config      = true
     maximum_retry_attempts         = 0
@@ -134,7 +134,7 @@ lambda = {
     function_name                  = "startrds"
     description                    = "Auto Start RDS Instance (from tag : AutoStart)"
     handler                        = "autostartrdsinstance.lambda_handler"
-    runtime                        = "python3.9"
+    runtime                        = "python3.10"
     zip_name                       = "autostartfunction"
     create_async_event_config      = true
     maximum_retry_attempts         = 0

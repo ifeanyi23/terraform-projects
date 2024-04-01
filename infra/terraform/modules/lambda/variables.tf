@@ -1,11 +1,13 @@
-variable "lambda" {}
+# variable "lambda" {}
 
-variable "lambda_name" {}
+# variable "lambda_name" {}
 
-variable "subnet_ids" {}
+# variable "subnet_ids" {}
 
-variable "vpc_security_group_ids" {}
+# variable "vpc_security_group_ids" {}
 
-variable "account_id" {}
+# variable "account_id" {}
 
-# variable "event_bridge_resource" {}
+# variable "environment" {}
+
+# # variable "event_bridge_resource" {}
