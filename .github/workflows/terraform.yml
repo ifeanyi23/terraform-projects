@@ -68,3 +68,42 @@ jobs:
                gitToken: ${{ secrets.ACTIONS_SAAS_SA_TKN }}
                tfWorkspace: joe-org-platform-env-${{ inputs.ENVIRONMENT }}
                tfDir: ${{ inputs.COMPONENT }}/terraform
+    tf_apply:
+        name: Terraform Apply
+        concurrency: tf_${{ inputs.COMPONENT }}_${{ inputs.ENVIRONMENT }}
+        needs: [tf_plan]
+        runs-on: ubuntu-latest
+        if: ${{(github.event == 'push' && github.ref == 'ref/heads/main') || inputs.TF_FORCE_APPLY == 'true'}}
+        steps:
+          - name: Repo Checkout
+            uses: actions/checkout@v4
+
+          - name: Setup Pip
+            run: |
+              curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+              python3 get-pip.py
+              export PATH=$PATH:~/.local/bin
+              pip -V
+              python3 --version
+    
+          - name: Configure AWS Credentials
+            uses: aws-actions/configure-aws-credentials@v4
+            with:
+             aws-region: ${{ env.AWS_DEFAULT_REGION }}
+             role-to-assume: ${{ env.AWS_OIDC_ROLE }}
+
+          - name: 'Who am i'
+            shell: bash
+            run: |
+             terraform -version
+             aws sts get-caller-identity
+
+          - name: Terraform Apply
+            id: plan
+            uses: ifeanyi23/github-action-terraform-apply@v1.0.0 
+            with:
+               tfArgs: '-lock=false'
+               gitUser: ${{ secrets.ACTIONS_SAAS_SA_USER }}
+               gitToken: ${{ secrets.ACTIONS_SAAS_SA_TKN }}
+               tfWorkspace: joe-org-platform-env-${{ inputs.ENVIRONMENT }}
+               tfDir: ${{ inputs.COMPONENT }}/terraform
