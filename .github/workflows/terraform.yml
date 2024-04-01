@@ -55,6 +55,7 @@ jobs:
             id: plan
             uses: ifeanyi23/github-action-terraform-plan@v1.0.0 
             with:
+               tfArgs: '-var -lock=false'
                gitUser: ${{ secrets.ACTIONS_SAAS_SA_USER }}
                gitToken: ${{ secrets.ACTIONS_SAAS_SA_TKN }}
                tfWorkspace: joe-org-platform-env-${{ inputs.ENVIRONMENT }}
