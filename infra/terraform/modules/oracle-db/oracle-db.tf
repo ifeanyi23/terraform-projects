@@ -75,7 +75,7 @@ resource "aws_db_instance" "db" {
 ##############################################################################
 
 resource "aws_iam_role" "rds_enhanced_monitoring" {
-  name_prefix        = "${local.workspace["environment"]}-rds-enhanced-monitoring-"
+  name_prefix        = "${var.environment}-rds-enhanced-monitoring-"
   assume_role_policy = data.aws_iam_policy_document.rds_enhanced_monitoring.json
 }
 
