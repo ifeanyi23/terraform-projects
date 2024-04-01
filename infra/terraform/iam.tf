@@ -1,11 +1,11 @@
 resource "aws_iam_role" "rds_lambda_role" {
-  name                  = "rds-lambda-role"
+  name                  = "${local.workspace["environment"]}-rds-lambda-role"
   assume_role_policy    = data.aws_iam_policy_document.lambda_assume_role.json
   force_detach_policies = true
 }
 
 resource "aws_iam_policy" "rds_lambda_policy" {
-  name        = "rds-lambda-policy"
+  name        = "${local.workspace["environment"]}rds-lambda-policy"
   description = "This is the IAM policy for the rds lambda"
   policy      = data.aws_iam_policy_document.rds_lambda_policy.json
 }

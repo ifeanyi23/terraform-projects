@@ -14,7 +14,7 @@ locals {
 
 
 resource "aws_security_group" "joes-oracle-db-sg" {
-  name        = "Joes Oracle Db Security Group"
+  name        = "${local.workspace["environment"]}-joes-oracle-db-sg"
   description = "Allow inbound traffic"
   vpc_id      = aws_vpc.vpc.id
   dynamic "ingress" {
@@ -55,7 +55,7 @@ resource "aws_security_group" "joes-oracle-db-sg" {
 
 
 resource "aws_security_group" "ec2_instance_sg" {
-  name   = "test-windows-instance-sg"
+  name   = "${local.workspace["environment"]}-test-windows-instance-sg"
   vpc_id = aws_vpc.vpc.id
 
   ingress {
@@ -98,7 +98,7 @@ resource "aws_security_group" "ec2_instance_sg" {
 }
 
 resource "aws_security_group" "ssm" {
-  name        = "SSM Security Group"
+  name        = "${local.workspace["environment"]}-ssm-security-group"
   description = "Allow inbound traffic from ssm"
   vpc_id      = aws_vpc.vpc.id
 

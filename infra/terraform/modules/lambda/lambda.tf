@@ -1,7 +1,7 @@
 module "rds_lambda" {
   source = "terraform-aws-modules/lambda/aws"
 
-  function_name = var.lambda_name
+  function_name = "${var.environment}-${var.lambda_name}"
   handler       = var.lambda.handler
   runtime       = var.lambda.runtime
 

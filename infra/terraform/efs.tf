@@ -1,12 +1,12 @@
 resource "aws_efs_file_system" "rds_efs_integration" {
-  creation_token  = "rds-efs-integration"
+  creation_token  = "${local.workspace["environment"]}-rds-efs-integration"
   throughput_mode = "elastic"
   encrypted       = true
   lifecycle_policy {
     transition_to_ia = "AFTER_30_DAYS"
   }
   tags = {
-    Name = "rds-efs-integration"
+    Name = "${local.workspace["environment"]}-rds-efs-integration"
   }
 }
 

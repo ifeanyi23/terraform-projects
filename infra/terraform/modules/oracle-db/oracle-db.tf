@@ -38,7 +38,7 @@ resource "aws_db_instance" "db" {
   db_subnet_group_name    = aws_db_subnet_group.db_subnet_group.id
   engine                  = var.rds_db.engine
   engine_version          = var.rds_db.engine_version
-  identifier              = "${var.environment}-${var.rds_db.identifier}"
+  identifier              = "${var.rds_db.identifier}-${var.environment}"
   instance_class          = var.rds_db.instance_class
   license_model           = var.rds_db.license_model
   multi_az                = var.rds_db.multi_az
@@ -75,7 +75,7 @@ resource "aws_db_instance" "db" {
 ##############################################################################
 
 resource "aws_iam_role" "rds_enhanced_monitoring" {
-  name_prefix        = "rds-enhanced-monitoring-"
+  name_prefix        = "${local.workspace["environment"]}-rds-enhanced-monitoring-"
   assume_role_policy = data.aws_iam_policy_document.rds_enhanced_monitoring.json
 }
 

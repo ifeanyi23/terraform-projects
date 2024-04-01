@@ -1,5 +1,5 @@
 resource "aws_secretsmanager_secret" "db_secret" {
-  name        = "secret/${var.db_secret_name}"
+  name        = "secret/${local.workspace["environment"]}-${var.db_secret_name}"
   description = "Connection credentials to access the database."
 
   tags = {
@@ -30,7 +30,9 @@ data "aws_iam_policy_document" "db_secret_policy" {
       test     = "ArnNotEquals"
       variable = "aws:PrincipalArn"
       values = [
-        "arn:aws:iam::${local.workspace["account_id"]}:user/joeboy"
+        "arn:aws:iam::${local.workspace["account_id"]}:user/joeboy",
+        "arn:aws:iam::${local.workspace["account_id"]}:role/Joe-Org-Github-Actions-Env",
+        "arn:aws:iam::${local.workspace["account_id"]}:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_*"
       ]
     }
   }
