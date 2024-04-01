@@ -23,7 +23,7 @@ terraform {
 
 provider "aws" {
   # Configuration options
-  region              = "ap-southeast-2"
+  region              = local.region
   allowed_account_ids = [local.workspace["account_id"]]
   assume_role {
     role_arn     = "arn:aws:iam::${local.workspace["account_id"]}:role/Joe-Org-Github-Actions-Env"

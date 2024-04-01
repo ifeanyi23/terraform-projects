@@ -51,11 +51,11 @@ jobs:
              terraform -version
              aws sts get-caller-identity
 
-        #   - name: Terraform Plan 
-        #     id: plan
-        #     uses: ifeanyi23/github-action-terraform-plan@v1.0.0 
-        #     with:
-        #        gitUser: ${{ secrets.ACTIONS_SAAS_SA_USER }}
-        #        gitToken: ${{ secrets.ACTIONS_SAAS_SA_TKN }}
-        #        tfWorkspace: joe-org-platform-env-${{ inputs.ENVIRONMENT }}
-        #        tfDir: ${{ inputs.COMPONENT }}/terraform
+          - name: Terraform Plan 
+            id: plan
+            uses: ifeanyi23/github-action-terraform-plan@v1.0.0 
+            with:
+               gitUser: ${{ secrets.ACTIONS_SAAS_SA_USER }}
+               gitToken: ${{ secrets.ACTIONS_SAAS_SA_TKN }}
+               tfWorkspace: joe-org-platform-env-${{ inputs.ENVIRONMENT }}
+               tfDir: ${{ inputs.COMPONENT }}/terraform
