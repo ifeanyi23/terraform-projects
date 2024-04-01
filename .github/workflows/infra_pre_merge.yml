@@ -25,7 +25,7 @@ jobs:
         with:
             COMPONENT: infra
             ENVIRONMENT: dev
-            TF_FORCE_APPLY: "${{ github.event.inputs.force_terraform_apply }}"
+            TF_FORCE_APPLY: true  #"${{ github.event.inputs.force_terraform_apply }}"
     test:
         name: Test
         uses: ./.github/workflows/terraform.yml
