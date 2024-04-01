@@ -73,7 +73,7 @@ jobs:
         concurrency: tf_${{ inputs.COMPONENT }}_${{ inputs.ENVIRONMENT }}
         needs: [tf_plan]
         runs-on: ubuntu-latest
-        if: ${{(github.event == 'push' && github.ref == 'ref/heads/main') || inputs.TF_FORCE_APPLY == 'true'}}
+        if: ${{(github.event == 'push' && github.ref == 'ref/heads/main') || (inputs.TF_FORCE_APPLY == 'true')}}
         steps:
           - name: Repo Checkout
             uses: actions/checkout@v4
