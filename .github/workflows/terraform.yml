@@ -38,6 +38,13 @@ jobs:
         steps:
           - name: Repo Checkout
             uses: actions/checkout@v4
+
+          - name: Setup Pip
+            run: |
+              curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+              python3 get-pip.py
+              export PATH=$PATH:~/.local/bin
+              pip -V
     
           - name: Configure AWS Credentials
             uses: aws-actions/configure-aws-credentials@v4
