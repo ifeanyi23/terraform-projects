@@ -141,34 +141,34 @@
 
 
 # #for lambda
-# resource "aws_security_group" "lambda_sg" {
-#   name        = "${local.workspace["environment"]}-lambda-sg"
-#   description = "Security Group attached to lambda"
-#   vpc_id      = aws_vpc.vpc.id
-#   tags = {
-#     Name = "${local.workspace["environment"]}-lambda-sg"
-#   }
-# }
+resource "aws_security_group" "lambda_sg" {
+  name        = "${local.workspace["environment"]}-lambda-sg"
+  description = "Security Group attached to lambda"
+  vpc_id      = aws_vpc.vpc.id
+  tags = {
+    Name = "${local.workspace["environment"]}-lambda-sg"
+  }
+}
 
-# resource "aws_security_group_rule" "lambda_sg_rule1" {
-#   description       = "Outbound to everywere"
-#   type              = "egress"
-#   security_group_id = aws_security_group.lambda_sg.id
-#   from_port         = 443
-#   to_port           = 443
-#   protocol          = "tcp"
-#   cidr_blocks       = ["0.0.0.0/0"]
-# }
+resource "aws_security_group_rule" "lambda_sg_rule1" {
+  description       = "Outbound to everywere"
+  type              = "egress"
+  security_group_id = aws_security_group.lambda_sg.id
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
 
-# resource "aws_security_group_rule" "lambda_sg_rule2" {
-#   description       = "Outbound to everywere"
-#   type              = "egress"
-#   security_group_id = aws_security_group.lambda_sg.id
-#   from_port         = 1521
-#   to_port           = 1521
-#   protocol          = "tcp"
-#   cidr_blocks       = ["0.0.0.0/0"]
-# }
+resource "aws_security_group_rule" "lambda_sg_rule2" {
+  description       = "Outbound to everywere"
+  type              = "egress"
+  security_group_id = aws_security_group.lambda_sg.id
+  from_port         = 1521
+  to_port           = 1521
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+}
 
 # # For EFS
 # resource "aws_security_group" "efs_mount_target_sg" {
