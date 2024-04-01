@@ -6,7 +6,7 @@ terraform {
     dynamodb_table = "joeboy-aws-mgmtacct1-terraform-lock"
     region         = "ap-southeast-2"
     # assume_role = {
-    #   role_arn     = "arn:aws:iam::670213391116:role/Joe-Org-Github-Actions-Env"
+    #   role_arn     = "arn:aws:iam::670213391116:role/Joe-Org-Github-Actions-Env" 
     #   duration     = "60m"
     #   session_name = "infra@app_platform_env"
     # }
