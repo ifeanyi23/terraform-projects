@@ -24,3 +24,10 @@ jobs:
         with:
             COMPONENT: infra
             ENVIRONMENT: test
+    prod:
+        name: Prod
+        uses: ./.github/workflows/terraform.yml
+        secrets: inherit
+        with:
+            COMPONENT: infra
+            ENVIRONMENT: prod
