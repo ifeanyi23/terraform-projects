@@ -20,6 +20,12 @@ terraform {
     # external = {
     #   source = "hashicorp/archive"
     # }
+    null = {
+      source = "hashicorp/null"
+    }
+    local = {
+      source = "hashicorp/local"
+    }
     template = {
       source = "hashicorp/template"
     }
