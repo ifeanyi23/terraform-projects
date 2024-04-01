@@ -88,7 +88,7 @@ rds-db = {
 }
 
 s3_buckets = {
-  terraform-state-bucket-001 = {
+  terraform-state-bucket-002 = {
     force_destroy                         = true
     block_public_acls                     = true
     block_public_policy                   = true
