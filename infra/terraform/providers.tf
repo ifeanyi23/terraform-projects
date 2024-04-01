@@ -17,9 +17,9 @@ terraform {
       source  = "hashicorp/aws"
       version = ">=5.24.0"
     }
-    external = {
-      source = "hashicorp/archive"
-    }
+    # external = {
+    #   source = "hashicorp/archive"
+    # }
     template = {
       source = "hashicorp/template"
     }
