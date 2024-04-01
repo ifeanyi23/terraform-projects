@@ -45,6 +45,7 @@ jobs:
               python3 get-pip.py
               export PATH=$PATH:~/.local/bin
               pip -V
+              python3 --version
     
           - name: Configure AWS Credentials
             uses: aws-actions/configure-aws-credentials@v4
